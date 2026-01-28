@@ -1,0 +1,243 @@
+# SecureChat - End-to-End Encrypted Messaging Application
+
+A modern, secure chat application built with Next.js, TypeScript, and Web Crypto API featuring end-to-end encryption. Designed for deployment on Vercel.
+
+![SecureChat Screenshot](https://via.placeholder.com/800x400/1e293b/3b82f6?text=SecureChat+-+E2E+Encrypted)
+
+## 🔐 Security Features
+
+### End-to-End Encryption (E2EE)
+All messages are encrypted on the client-side before being sent to the server. The server **never** sees plaintext message content.
+
+### Encryption Algorithms
+
+| Algorithm | Purpose | Details |
+|-----------|---------|---------|
+| **AES-256-GCM** | Message Encryption | 256-bit key, 96-bit IV, authenticated encryption |
+| **ECDH P-256** | Key Exchange | Elliptic Curve Diffie-Hellman for secure key agreement |
+| **PBKDF2** | Key Derivation | For password-based key storage (100,000 iterations) |
+| **SHA-256** | Hashing | For integrity verification |
+| **bcrypt** | Password Hashing | 12 rounds for secure password storage |
+
+### Key Exchange Mechanism
+
+```
+┌─────────┐                              ┌─────────┐
+│  Alice  │                              │   Bob   │
+└────┬────┘                              └────┬────┘
+     │                                        │
+     │  1. Generate ECDH Key Pair             │
+     │  ◄─────────────────────────────────►   │ 1. Generate ECDH Key Pair
+     │                                        │
+     │  2. Send Public Key                    │
+     │  ─────────────────────────────────►    │
+     │                                        │
+     │                          3. Send Public Key
+     │  ◄─────────────────────────────────    │
+     │                                        │
+     │  4. Derive Shared Secret               │
+     │  ◄─────────────────────────────────►   │ 4. Derive Shared Secret
+     │                                        │
+     │  5. Encrypt messages with AES-256-GCM  │
+     │  ◄═══════════════════════════════════► │
+     │                                        │
+```
+
+## 🚀 Features
+
+- ✅ **User Authentication** - Secure login/registration with bcrypt password hashing
+- ✅ **End-to-End Encryption** - Messages encrypted client-side using AES-256-GCM
+- ✅ **Secure Key Exchange** - ECDH P-256 for establishing shared secrets
+- ✅ **Real-time Messaging** - Pusher integration for instant message delivery
+- ✅ **Modern UI** - Beautiful dark theme with Tailwind CSS
+- ✅ **TypeScript** - Full type safety throughout the codebase
+- ✅ **Vercel Ready** - Optimized for serverless deployment
+
+## 📦 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Authentication**: NextAuth.js
+- **Real-time**: Pusher
+- **Encryption**: Web Crypto API
+- **Icons**: Lucide React
+
+## 🛠️ Installation
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- (Optional) Pusher account for real-time features
+
+### Setup
+
+1. **Clone and navigate to the project**
+   ```bash
+   cd secure-chat
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Edit `.env.local` with your values:
+   ```env
+   # Required
+   NEXTAUTH_SECRET=your-super-secret-key
+   NEXTAUTH_URL=http://localhost:3000
+
+   # Optional (for real-time features)
+   PUSHER_APP_ID=your-app-id
+   PUSHER_SECRET=your-secret
+   NEXT_PUBLIC_PUSHER_KEY=your-key
+   NEXT_PUBLIC_PUSHER_CLUSTER=us2
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in browser**
+   ```
+   http://localhost:3000
+   ```
+
+### Demo Accounts
+
+For testing, use these pre-configured accounts (password: `password123`):
+
+| Email | Name |
+|-------|------|
+| alice@example.com | Alice |
+| bob@example.com | Bob |
+| charlie@example.com | Charlie |
+
+## 🌐 Deploy to Vercel
+
+### One-Click Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/secure-chat)
+
+### Manual Deployment
+
+1. **Push to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/yourusername/secure-chat.git
+   git push -u origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "New Project"
+   - Import your GitHub repository
+
+3. **Configure Environment Variables**
+   
+   In Vercel dashboard, add these environment variables:
+   
+   | Variable | Required | Description |
+   |----------|----------|-------------|
+   | `NEXTAUTH_SECRET` | Yes | Random secret for JWT signing |
+   | `NEXTAUTH_URL` | Yes | Your production URL (e.g., `https://secure-chat.vercel.app`) |
+   | `PUSHER_APP_ID` | No | Pusher App ID for real-time |
+   | `PUSHER_SECRET` | No | Pusher Secret |
+   | `NEXT_PUBLIC_PUSHER_KEY` | No | Pusher Public Key |
+   | `NEXT_PUBLIC_PUSHER_CLUSTER` | No | Pusher Cluster (e.g., `us2`) |
+
+4. **Deploy**
+   - Click "Deploy"
+   - Wait for build to complete
+   - Your app is live!
+
+## 📁 Project Structure
+
+```
+secure-chat/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── auth/
+│   │   │   │   ├── [...nextauth]/route.ts  # NextAuth configuration
+│   │   │   │   └── register/route.ts       # User registration
+│   │   │   ├── messages/route.ts           # Message CRUD
+│   │   │   ├── users/
+│   │   │   │   ├── route.ts                # User listing
+│   │   │   │   └── public-key/route.ts     # Public key management
+│   │   │   └── key-exchange/route.ts       # Key exchange endpoint
+│   │   ├── login/page.tsx                  # Login page
+│   │   ├── register/page.tsx               # Registration page
+│   │   ├── globals.css                     # Global styles
+│   │   ├── layout.tsx                      # Root layout
+│   │   └── page.tsx                        # Main chat page
+│   ├── components/
+│   │   ├── AuthProvider.tsx                # Session provider
+│   │   ├── ChatLayout.tsx                  # Main chat layout
+│   │   ├── ChatWindow.tsx                  # Chat messages UI
+│   │   └── UserList.tsx                    # User sidebar
+│   └── lib/
+│       ├── crypto.ts                       # Encryption utilities
+│       ├── messages.ts                     # Message store
+│       ├── pusher-client.ts                # Pusher client
+│       ├── pusher-server.ts                # Pusher server
+│       └── users.ts                        # User store
+├── .env.example                            # Environment template
+├── .env.local                              # Local environment
+├── next.config.js                          # Next.js config
+├── tailwind.config.js                      # Tailwind config
+├── tsconfig.json                           # TypeScript config
+└── package.json                            # Dependencies
+```
+
+## 🔒 How Encryption Works
+
+### Message Flow
+
+1. **Key Generation**: When a user logs in, an ECDH key pair is generated
+2. **Key Exchange**: Before chatting, users exchange public keys via Pusher
+3. **Shared Secret**: Each user derives a shared AES key using ECDH
+4. **Encryption**: Messages are encrypted with AES-256-GCM before sending
+5. **Transmission**: Only encrypted ciphertext travels through the server
+6. **Decryption**: Recipient decrypts using the shared key
+
+### Security Guarantees
+
+- **Confidentiality**: Messages can only be read by sender and recipient
+- **Integrity**: GCM mode provides authentication (tamper detection)
+- **Forward Secrecy**: Each session can use new key pairs
+- **Server Blindness**: Server only sees encrypted data
+
+## ⚠️ Production Considerations
+
+For a production deployment, consider:
+
+1. **Database**: Replace in-memory stores with a proper database (PostgreSQL, MongoDB)
+2. **Key Storage**: Implement secure key backup/recovery mechanisms
+3. **Rate Limiting**: Add rate limiting to prevent abuse
+4. **Message Persistence**: Store encrypted messages in a database
+5. **Group Chat**: Extend for multi-party encryption
+6. **File Sharing**: Add encrypted file transfer support
+
+## 📄 License
+
+MIT License - feel free to use this project for learning or building your own secure applications.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+Built with 🔐 by SecureChat Team
