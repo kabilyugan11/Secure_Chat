@@ -1,23 +1,13 @@
 # SecureChat - End-to-End Encrypted Messaging Application
+## (https://chat.kabilyugan.com/)
 
 A modern, secure chat application built with Next.js, TypeScript, and Web Crypto API featuring end-to-end encryption. Designed for deployment on Vercel.
-
-![SecureChat Screenshot](https://via.placeholder.com/800x400/1e293b/3b82f6?text=SecureChat+-+E2E+Encrypted)
 
 ## 🔐 Security Features
 
 ### End-to-End Encryption (E2EE)
 All messages are encrypted on the client-side before being sent to the server. The server **never** sees plaintext message content.
 
-### Encryption Algorithms
-
-| Algorithm | Purpose | Details |
-|-----------|---------|---------|
-| **AES-256-GCM** | Message Encryption | 256-bit key, 96-bit IV, authenticated encryption |
-| **ECDH P-256** | Key Exchange | Elliptic Curve Diffie-Hellman for secure key agreement |
-| **PBKDF2** | Key Derivation | For password-based key storage (100,000 iterations) |
-| **SHA-256** | Hashing | For integrity verification |
-| **bcrypt** | Password Hashing | 12 rounds for secure password storage |
 
 ### Key Exchange Mechanism
 
@@ -108,59 +98,10 @@ All messages are encrypted on the client-side before being sent to the server. T
 
 5. **Open in browser**
    ```
-   http://localhost:3000
+   (https://chat.kabilyugan.com/)
    ```
 
-### Demo Accounts
 
-For testing, use these pre-configured accounts (password: `password123`):
-
-| Email | Name |
-|-------|------|
-| alice@example.com | Alice |
-| bob@example.com | Bob |
-| charlie@example.com | Charlie |
-
-## 🌐 Deploy to Vercel
-
-### One-Click Deploy
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/secure-chat)
-
-### Manual Deployment
-
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/secure-chat.git
-   git push -u origin main
-   ```
-
-2. **Import to Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "New Project"
-   - Import your GitHub repository
-
-3. **Configure Environment Variables**
-   
-   In Vercel dashboard, add these environment variables:
-   
-   | Variable | Required | Description |
-   |----------|----------|-------------|
-   | `NEXTAUTH_SECRET` | Yes | Random secret for JWT signing |
-   | `NEXTAUTH_URL` | Yes | Your production URL (e.g., `https://secure-chat.vercel.app`) |
-   | `PUSHER_APP_ID` | No | Pusher App ID for real-time |
-   | `PUSHER_SECRET` | No | Pusher Secret |
-   | `NEXT_PUBLIC_PUSHER_KEY` | No | Pusher Public Key |
-   | `NEXT_PUBLIC_PUSHER_CLUSTER` | No | Pusher Cluster (e.g., `us2`) |
-
-4. **Deploy**
-   - Click "Deploy"
-   - Wait for build to complete
-   - Your app is live!
 
 ## 📁 Project Structure
 
