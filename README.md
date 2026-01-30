@@ -1,7 +1,7 @@
 # SecureChat - End-to-End Encrypted Messaging Application
 ## (https://chat.kabilyugan.com/)
 
-A modern, secure chat application built with Next.js, TypeScript, and Web Crypto API featuring end-to-end encryption. Designed for deployment on Vercel.
+A modern, secure chat application built with Web Crypto API featuring end-to-end encryption.
 
 ## 🔐 Security Features
 
@@ -40,18 +40,7 @@ All messages are encrypted on the client-side before being sent to the server. T
 - ✅ **Secure Key Exchange** - ECDH P-256 for establishing shared secrets
 - ✅ **Real-time Messaging** - Pusher integration for instant message delivery
 - ✅ **Modern UI** - Beautiful dark theme with Tailwind CSS
-- ✅ **TypeScript** - Full type safety throughout the codebase
-- ✅ **Vercel Ready** - Optimized for serverless deployment
 
-## 📦 Tech Stack
-
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Authentication**: NextAuth.js
-- **Real-time**: Pusher
-- **Encryption**: Web Crypto API
-- **Icons**: Lucide React
 
 ## 🛠️ Installation
 
@@ -153,12 +142,6 @@ secure-chat/
 5. **Transmission**: Only encrypted ciphertext travels through the server
 6. **Decryption**: Recipient decrypts using the shared key
 
-### Security Guarantees
-
-- **Confidentiality**: Messages can only be read by sender and recipient
-- **Integrity**: GCM mode provides authentication (tamper detection)
-- **Forward Secrecy**: Each session can use new key pairs
-- **Server Blindness**: Server only sees encrypted data
 
 ## ⚠️ Production Considerations
 
@@ -178,7 +161,3 @@ MIT License - feel free to use this project for learning or building your own se
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-Built with 🔐 by SecureChat Team
